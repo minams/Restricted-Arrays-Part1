@@ -36,7 +36,7 @@ end
 # For an unsorted array, searches for 'value_to_find'.
 # Returns true if found, false otherwise.
 # Time complexity: O(n), where n is the number of values in the array
-# Space complexity: ?
+# Space complexity: O(1)
 def search(array, length, value_to_find)
   length.times do |i|
     return true if array[i] == value_to_find
@@ -47,13 +47,13 @@ end
 # Finds and returns the largest integer value the array
 # Assumes that the array is not sorted.
 # Time complexity: linear or O(n)
-# Space complexity: ?
+# Space complexity: O(1)
 def find_largest(array, length)
   i = 1
   largest = array[0]
-  while array[n] != nil
-    if array[n] > largest
-      largest = array[n]
+  while array[i] != nil
+    if array[i] > largest
+      largest = array[i]
     end
     i += 1
   end
@@ -62,22 +62,61 @@ end
 
 # Finds and returns the smallest integer value in the array
 # Assumes that the array is not sorted.
-# Time complexity: ?
-# Space complexity: ?
+# Time complexity: O(n)
+# Space complexity: O(1)
 def find_smallest(array, length)
-end
+  i = 1
+  largest = array[0]
+  while array[i] != nil
+    if array[i] < max
+      largest = array[i]
+    end
+    i += 1
+    return largest
+  end
 
-# Reverses the values in the integer array in place
-# Time complexity: ?
-# Space complexity: ?
-def reverse(array, length)
-end
+  # Reverses the values in the integer array in place
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+  def reverse(array, length)
+    i = 0
+    j = length - 1
+    while i < j
+      array[i] = array[i] + array[j]
+      array[j] = array[i] - array[j]
+      array[i] = array[i] - array[j]
+      i += 1
+      j -= 1
+    end
+    return array
+  end
 
-# For an array sorted in ascending order, searches for 'value_to_find'.
-# Returns true if found, false otherwise.
-# Time complexity: ?
-# Space complexity: ?
-def binary_search(array, length, value_to_find)
+  # For an array sorted in ascending order, searches for 'value_to_find'.
+  # Returns true if found, false otherwise.
+  # Time complexity: O(n)
+  # Space complexity: O(1)
+  def binary_search(array, length, value_to_find)
+    array = sort(array, length)
+    low = 0
+    high = length - 1
+    mid = (high - low) / 2
+    while low < high
+      if value_to_find == array[mid]
+        return true
+      elsif value_to_find < array[mid]
+        high = mid
+        mid = low + ((high - low) / 2)
+      elsif value_to_find > array[mid]
+        low = mid
+        mid = high - ((high - low) / 2)
+      end
+    end
+    if value_to_find == array[mid]
+      return true
+    else
+      return false
+    end
+  end
 end
 
 # Helper method provided to sort the array in ascending order
